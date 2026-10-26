@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C Exam</title>
+<!-- Enables cross-origin isolation on static hosts (GitHub Pages) so programs can read keyboard input interactively -->
+<script>
+  // ?noisolation=1 skips the service worker (fallback input mode, for troubleshooting)
+  window.coi = { shouldRegister: () => !/[?&]noisolation=1/.test(location.search), quiet: true };
+</script>
+<script src="coi-serviceworker.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="toolbar">
+  <span id="exam-title">C Exam</span>
+  <span class="spacer"></span>
+  <span id="save-state" class="muted">Saved</span>
+  <button id="btn-build" title="Compile (Ctrl+B)">Build</button>
+  <button id="btn-run" class="primary" title="Compile and run (Ctrl+Enter)">▶ Build &amp; Run</button>
+  <button id="btn-stop" title="Stop the running program" disabled>■ Stop</button>
+  <button id="btn-canvas" hidden title="Link this exam to your Canvas assignment">Link to Canvas</button>
+  <button id="btn-copy" class="submit" title="Copy all your code to paste into the quiz">Copy all code</button>
+</header>
+<main id="workbench">
+  <nav id="sidebar">
+    <div class="side-head">
+      <span>FILES</span>
+      <button id="btn-new" class="icon" title="New file">+</button>
+    </div>
+    <ul id="file-list"></ul>
+    <div id="new-file-row" hidden>
+      <input id="new-file-name" placeholder="name.c" spellcheck="false" autocomplete="off">
+    </div>
+    <div class="side-foot">
+      <button id="btn-reset" class="link">Reset to starter code</button>
+    </div>
+  </nav>
+  <section id="editor-area">
+    <div id="tabs"></div>
+    <div id="editor"></div>
+    <div id="resizer" title="Drag to resize"></div>
+    <section id="panel">
+      <div class="panel-head">
+        <span>CONSOLE</span>
+        <span id="io-mode" class="muted"></span>
+        <span class="spacer"></span>
+        <button id="btn-eof" class="small" hidden title="Send end-of-file (Ctrl+D)">Send EOF</button>
+        <button id="btn-clear" class="small">Clear</button>
+      </div>
+      <div id="stdin-box" hidden>
+        <label for="stdin-text">Program input (sent to stdin on the next run):</label>
+        <textarea id="stdin-text" rows="3" spellcheck="false"></textarea>
+      </div>
+      <div id="console" tabindex="0"></div>
+    </section>
+  </section>
+</main>
+
+<div id="modal" class="modal" hidden>
+  <div class="modal-box">
+    <h2 id="modal-title"></h2>
+    <div id="modal-body"></div>
+    <div id="modal-actions"></div>
+  </div>
+</div>
+
+<script src="vendor/monaco/vs/loader.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
